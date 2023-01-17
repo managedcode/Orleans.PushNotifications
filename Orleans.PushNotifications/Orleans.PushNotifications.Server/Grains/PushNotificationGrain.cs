@@ -1,8 +1,8 @@
 ﻿using ManagedCode.Communication;
 using Orleans.Concurrency;
 using Orleans.PushNotifications.Core.Interfaces;
+using Orleans.PushNotifications.Core.Interfaces.Grains;
 using Orleans.PushNotifications.Core.Models;
-using Orleans.PushNotifications.Server.Grains.Interfaces;
 
 namespace Orleans.PushNotifications.Server.Grains
 {

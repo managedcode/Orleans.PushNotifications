@@ -1,8 +1,7 @@
 ﻿using ManagedCode.Communication;
-using Orleans;
 using Orleans.PushNotifications.Core.Models;
 
-namespace Orleans.PushNotifications.Server.Grains.Interfaces
+namespace Orleans.PushNotifications.Core.Interfaces.Grains
 {
     public interface IPushNotificationGrain : IGrainWithStringKey
     {
