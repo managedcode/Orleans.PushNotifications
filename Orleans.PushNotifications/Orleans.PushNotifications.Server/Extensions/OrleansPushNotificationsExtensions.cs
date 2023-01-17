@@ -8,6 +8,7 @@ namespace Orleans.PushNotifications.Server.Extensions
 {
     public static class OrleansPushNotificationsExtensions
     {
+        // TODO: add configurations in secure way
         public static void AddIosPushNotifications(this IServiceCollection serviceCollection, AppleConfiguration config)
         {
             serviceCollection.AddApplePushNotifications(config);
