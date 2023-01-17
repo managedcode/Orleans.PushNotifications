@@ -4,6 +4,7 @@ using Orleans.PushNotifications.Google.Models;
 using Orleans.PushNotifications.Google.Senders.Interfaces;
 using System.Text.Json;
 using System.Text;
+using Orleans.PushNotifications.Core;
 
 namespace Orleans.PushNotifications.Google.Senders;
 
