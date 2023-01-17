@@ -1,7 +1,7 @@
 ﻿using ManagedCode.Communication;
 using Orleans.PushNotifications.Core.Models;
 
-namespace Orleans.PushNotifications.Interfaces;
+namespace Orleans.PushNotifications.Core.Interfaces;
 
 public interface IPushNotificationsManager
 {
