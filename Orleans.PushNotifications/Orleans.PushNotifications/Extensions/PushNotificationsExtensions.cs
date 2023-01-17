@@ -1,7 +1,6 @@
 ﻿using Orleans.PushNotifications.Apple.Senders.Interfaces;
 using Orleans.PushNotifications.Apple.Senders;
 using Orleans.PushNotifications.Core.Interfaces;
-using Orleans.PushNotifications.Core;
 using Orleans.PushNotifications.Google.Senders.Interfaces;
 using Orleans.PushNotifications.Google.Senders;
 using Orleans.PushNotifications.Apple.Models;

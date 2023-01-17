@@ -7,7 +7,7 @@ using Orleans.PushNotifications.Core.Models.Enums;
 using Orleans.PushNotifications.Core.Models;
 using Orleans.PushNotifications.Google.Senders.Interfaces;
 
-namespace Orleans.PushNotifications.Core;
+namespace Orleans.PushNotifications;
 
 
 public class PushNotificationsManager : IPushNotificationsManager
