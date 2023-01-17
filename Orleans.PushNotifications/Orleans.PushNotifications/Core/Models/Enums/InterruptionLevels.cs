@@ -1,9 +1,7 @@
-﻿namespace Orleans.PushNotifications.Core.Models.Enums
+﻿namespace Orleans.PushNotifications.Core.Models.Enums;
+public enum InterruptionLevels
 {
-    public enum InterruptionLevels
-    {
-        Active,
-        TimeSensitive,
-        Critical
-    }
+    Active,
+    TimeSensitive,
+    Critical
 }
