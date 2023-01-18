@@ -1,4 +1,5 @@
-﻿using Orleans.PushNotification.Tests.Cluster;
+﻿using FluentAssertions;
+using Orleans.PushNotification.Tests.Cluster;
 using Orleans.PushNotification.Tests.Cluster.Grains.Interfaces;
 using Xunit;
 
@@ -15,11 +16,17 @@ namespace Orleans.PushNotification.Tests
         }
 
         [Fact]
-        public async Task MakeCallToGrain_WhenGrainExists_ReturnOk()
+        public async Task MakeCallToGrain_WhenGrainExistsAndPushTokenValid_ReturnOk()
         {
+            // Arrange
             var chatId = Guid.NewGuid().ToString();
             var chatGrain = _testApp.Cluster.Client.GetGrain<IChatGrain>(chatId);
-            await chatGrain.SendTestMessage();
+            
+            // Act
+            var result = await chatGrain.SendTestMessage();
+            
+            // Assert
+            result.IsSuccess.Should().BeTrue();
         }
     }
 }

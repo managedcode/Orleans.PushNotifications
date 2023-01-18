@@ -1,7 +1,10 @@
-﻿namespace Orleans.PushNotification.Tests.Cluster.Grains.Interfaces
+﻿using ManagedCode.Communication;
+using Orleans.PushNotifications.Core.Models;
+
+namespace Orleans.PushNotification.Tests.Cluster.Grains.Interfaces
 {
     public interface IChatGrain : IGrainWithStringKey
     {
-        public Task SendTestMessage();
+        public Task<Result<DeviceRegistration>> SendTestMessage();
     }
 }
