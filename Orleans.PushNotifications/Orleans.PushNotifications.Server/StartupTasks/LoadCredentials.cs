@@ -44,6 +44,7 @@ namespace Orleans.PushNotifications.Server.StartupTasks
             GoogleConfiguration googleConfiguration)
         {
             _googleConfigurationProvider = googleConfigurationProvider;
+            _googleConfiguration = googleConfiguration;
             //_appleConfigurationProvider = appleConfigurationProvider;
         }
 
