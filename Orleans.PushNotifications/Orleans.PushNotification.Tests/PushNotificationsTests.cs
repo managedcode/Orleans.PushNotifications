@@ -1,7 +1,8 @@
-﻿using Orleans.PushNotification.Tests.Cluster.Grains.Interfaces;
+﻿using Orleans.PushNotification.Tests.Cluster;
+using Orleans.PushNotification.Tests.Cluster.Grains.Interfaces;
 using Xunit;
 
-namespace Orleans.PushNotification.Tests.Cluster
+namespace Orleans.PushNotification.Tests
 {
     [Collection(nameof(TestClusterApplication))]
     public class PushNotificationsTests
