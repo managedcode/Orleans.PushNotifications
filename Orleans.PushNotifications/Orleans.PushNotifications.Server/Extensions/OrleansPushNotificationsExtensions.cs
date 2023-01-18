@@ -2,7 +2,7 @@
 using Orleans.PushNotifications.Apple.Models;
 using Orleans.PushNotifications.Google.Models;
 using Orleans.PushNotifications.Extensions;
-
+using Orleans.PushNotifications.Server.StartupTasks;
 
 namespace Orleans.PushNotifications.Server.Extensions
 {
@@ -12,6 +12,11 @@ namespace Orleans.PushNotifications.Server.Extensions
         public static void AddIosPushNotifications(this IServiceCollection serviceCollection, AppleConfiguration config)
         {
             serviceCollection.AddApplePushNotifications(config);
+        }
+
+        public static void AddAdnroidPushNotifications(ISiloBuilder siloBuilder)
+        {
+            siloBuilder.AddStartupTask<LoadCredenials>();
         }
 
         public static void AddAndroidPushNotifications(this IServiceCollection serviceCollection,
