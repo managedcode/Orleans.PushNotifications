@@ -5,5 +5,5 @@ namespace Orleans.PushNotifications.Server.ConfigurationProviders;
 
 public interface IAppleConfigurationProvider
 {
-   Task<Result<AppleConfiguration>> LoadConfiguration();
+   ValueTask<Result<AppleConfiguration>> LoadConfiguration();
 }

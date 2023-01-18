@@ -5,5 +5,5 @@ namespace Orleans.PushNotifications.Server.ConfigurationProviders;
 
 public interface IGoogleConfigurationProvider
 {
-    Task<Result<GoogleConfiguration>> LoadConfiguration();
+    ValueTask<Result<GoogleConfiguration>> LoadConfiguration();
 }
