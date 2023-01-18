@@ -2,6 +2,5 @@ namespace Orleans.PushNotifications.Tests.Constants;
 
 public class TokensForTesting
 {
-    public const string DevicePushTokens =
-        "cJuPl6FaRx-ooj1VPI-i8W:APA91bGi1peNVS0_dnjfaLADDE34idrtvfUwUrPLZrqyBufOz2Xdi_khWorF_q6CZ0XxHvvUhZliknEKoI1iBRPJzplRGcK1L8_EkcZWo6fUpOvsupMQSWCak-PXkd9NWcPIfCHtqSdT";
+    public const string DevicePushTokens = " cJuPl6FaRx-ooj1VPI-i8W:APA91bF0xMfCjvzXL9EynXj80-yZXH1m5nMvyPnElrN_fIAT8o9HlZu-BcKJzuDKamTEGJQi3dIcrm035jPNaqF0Nh_-20SHsnvQTfk7dte0oz4NIGMvDvJ7pXTCk_bmaCYCYC1jjDPI";
 }

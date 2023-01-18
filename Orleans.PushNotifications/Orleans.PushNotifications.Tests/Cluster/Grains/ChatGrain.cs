@@ -17,7 +17,7 @@ public class ChatGrain : Grain, IChatGrain
             DeviceToken = TokensForTesting.DevicePushTokens,
             Platform = PushPlatforms.Google
         };
-        PushNotifications.Core.Models.PushNotification pushNotification = new PushNotifications.Core.Models.PushNotification()
+        PushNotification pushNotification = new PushNotification()
         {
             Title = "TEST ALERT",
             Message = "TEST"
