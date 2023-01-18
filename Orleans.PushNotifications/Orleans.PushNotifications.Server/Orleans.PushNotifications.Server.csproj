@@ -16,8 +16,4 @@
       <ProjectReference Include="..\Orleans.PushNotifications\Orleans.PushNotifications.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Orleans.PushNotifications\Orleans.PushNotifications.csproj" />
-    </ItemGroup>
-
 </Project>
