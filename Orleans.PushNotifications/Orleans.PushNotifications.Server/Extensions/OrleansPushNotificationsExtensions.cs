@@ -18,7 +18,7 @@ namespace Orleans.PushNotifications.Server.Extensions
         public static void AddIosPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
             where TGoogleProvider : class, IGoogleConfigurationProvider
         {
-            siloBuilder.AddStartupTask<LoadCredenials>();
+            siloBuilder.AddStartupTask<LoadCredentials>();
             siloBuilder.Services.AddSingleton<IGoogleConfigurationProvider, TGoogleProvider>();
             siloBuilder.Services.AddGooglePushNotifications(new GoogleConfiguration());
         }
@@ -26,7 +26,7 @@ namespace Orleans.PushNotifications.Server.Extensions
         public static void AddAndroidPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
             where TGoogleProvider : class, IGoogleConfigurationProvider
         {
-            siloBuilder.AddStartupTask<LoadCredenials>();
+            siloBuilder.AddStartupTask<LoadCredentials>();
             siloBuilder.Services.AddSingleton<IGoogleConfigurationProvider, TGoogleProvider>();
             siloBuilder.Services.AddGooglePushNotifications(new GoogleConfiguration());
         }
