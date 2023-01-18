@@ -2,8 +2,8 @@
 using Orleans.PushNotifications.Apple.Models;
 using Orleans.PushNotifications.Google.Models;
 using Orleans.PushNotifications.Extensions;
+using Orleans.PushNotifications.Server.ConfigurationProviders;
 using Orleans.PushNotifications.Server.StartupTasks;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Orleans.PushNotifications.Server.Extensions
 {
@@ -14,10 +14,20 @@ namespace Orleans.PushNotifications.Server.Extensions
         {
             serviceCollection.AddApplePushNotifications(config);
         }
-
-        public static void AddAdnroidPushNotifications(ISiloBuilder siloBuilder)
+        
+        public static void AddIosPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
+            where TGoogleProvider : class, IGoogleConfigurationProvider
         {
             siloBuilder.AddStartupTask<LoadCredenials>();
+            siloBuilder.Services.AddSingleton<IGoogleConfigurationProvider, TGoogleProvider>();
+            siloBuilder.Services.AddGooglePushNotifications(new GoogleConfiguration());
+        }
+
+        public static void AddAndroidPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
+            where TGoogleProvider : class, IGoogleConfigurationProvider
+        {
+            siloBuilder.AddStartupTask<LoadCredenials>();
+            siloBuilder.Services.AddSingleton<IGoogleConfigurationProvider, TGoogleProvider>();
             siloBuilder.Services.AddGooglePushNotifications(new GoogleConfiguration());
         }
 
