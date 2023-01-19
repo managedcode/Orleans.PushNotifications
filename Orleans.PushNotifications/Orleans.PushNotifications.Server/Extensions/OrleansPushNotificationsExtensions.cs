@@ -10,17 +10,12 @@ namespace Orleans.PushNotifications.Server.Extensions
     public static class OrleansPushNotificationsExtensions
     {
         // TODO: add configurations in secure way
-        public static void AddIosPushNotifications(this IServiceCollection serviceCollection, AppleConfiguration config)
+        public static void AddIosPushNotifications<TAppleProvider>(this ISiloBuilder siloBuilder)
+            where TAppleProvider : class, IAppleConfigurationProvider
         {
-            serviceCollection.AddApplePushNotifications(config);
-        }
-        
-        public static void AddIosPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
-            where TGoogleProvider : class, IGoogleConfigurationProvider
-        {
-            siloBuilder.AddStartupTask<GoogleConfigurationLoader>();
-            siloBuilder.Services.AddSingleton<IGoogleConfigurationProvider, TGoogleProvider>();
-            siloBuilder.Services.AddGooglePushNotifications(new GoogleConfiguration());
+            siloBuilder.Services.AddSingleton<IAppleConfigurationProvider, TAppleProvider>();
+            siloBuilder.Services.AddApplePushNotifications(new AppleConfiguration());
+            siloBuilder.AddStartupTask<AppleConfigurationLoader>();
         }
 
         public static void AddAndroidPushNotifications<TGoogleProvider>(this ISiloBuilder siloBuilder)
@@ -35,6 +30,12 @@ namespace Orleans.PushNotifications.Server.Extensions
             GoogleConfiguration config)
         {
             serviceCollection.AddGooglePushNotifications(config);
+        }
+        
+        public static void AddIosPushNotifications(this IServiceCollection serviceCollection,
+            AppleConfiguration config)
+        {
+            serviceCollection.AddApplePushNotifications(config);
         }
     }
 }
