@@ -8,7 +8,7 @@ namespace Orleans.PushNotifications.Tests.Cluster.Providers
     {
         public ValueTask<Result<GoogleConfiguration>> LoadConfiguration()
         {
-            var googleConfiguration = new GoogleConfiguration();
+            var googleConfiguration = new GoogleConfiguration() { IsLoaded = false};
             return ValueTask.FromResult(Result.Succeed(googleConfiguration));
         }
     }
