@@ -72,7 +72,9 @@ public class ApplePushSender : BasePushSender<AppleNotification, ApnResponse>, I
         return appleNotification;
     }
 
-    protected override async Task<Result<DeviceRegistration>> SendPushNotificationAsync(DeviceRegistration deviceRegistration,
+    protected override async Task<Result<DeviceRegistration>> SendPushNotificationAsync(
+        string bundleId,
+        DeviceRegistration deviceRegistration,
         AppleNotification notification,
         CancellationToken cancellationToken = default)
     {

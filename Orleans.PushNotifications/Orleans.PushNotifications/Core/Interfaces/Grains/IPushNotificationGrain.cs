@@ -5,6 +5,6 @@ namespace Orleans.PushNotifications.Core.Interfaces.Grains
 {
     public interface IPushNotificationGrain : IGrainWithStringKey
     {
-        Task<Result<DeviceRegistration>> SendPushNotification(DeviceRegistration deviceRegistration, PushNotification pushNotification);
+        Task<Result<DeviceRegistration>> SendPushNotification(string bundleId, DeviceRegistration deviceRegistration, PushNotification pushNotification);
     }
 }

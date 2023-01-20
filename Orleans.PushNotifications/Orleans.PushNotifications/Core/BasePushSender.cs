@@ -9,6 +9,7 @@ public abstract class BasePushSender<TRequest, TResponse> : IPushSender<TRequest
 {
     protected bool IsConfigured;
     public async Task<Result<DeviceRegistration>> SendPushAsync(
+        string bundleId,
         DeviceRegistration deviceRegistration,
         PushNotification notification,
         CancellationToken cancellationToken = default)
@@ -21,7 +22,7 @@ public abstract class BasePushSender<TRequest, TResponse> : IPushSender<TRequest
         try
         {
             var push = ConvertPushNotification(notification);
-            return await SendPushNotificationAsync(deviceRegistration, push, cancellationToken);
+            return await SendPushNotificationAsync(bundleId, deviceRegistration, push, cancellationToken);
         }
         catch (Exception e)
         {
@@ -31,7 +32,9 @@ public abstract class BasePushSender<TRequest, TResponse> : IPushSender<TRequest
 
     protected abstract TRequest ConvertPushNotification(PushNotification notification);
 
-    protected abstract Task<Result<DeviceRegistration>> SendPushNotificationAsync(DeviceRegistration deviceRegistration,
+    protected abstract Task<Result<DeviceRegistration>> SendPushNotificationAsync(
+        string bundleId,
+        DeviceRegistration deviceRegistration,
         TRequest notification,
         CancellationToken cancellationToken = default);
 }

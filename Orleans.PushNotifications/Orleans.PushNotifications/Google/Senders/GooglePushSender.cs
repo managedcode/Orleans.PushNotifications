@@ -55,7 +55,9 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
         return googleNotification;
     }
 
-    protected override async Task<Result<DeviceRegistration>> SendPushNotificationAsync(DeviceRegistration device,
+    protected override async Task<Result<DeviceRegistration>> SendPushNotificationAsync(
+        string bundleId,
+        DeviceRegistration device,
         GoogleNotification notification,
         CancellationToken cancellationToken = default)
     {

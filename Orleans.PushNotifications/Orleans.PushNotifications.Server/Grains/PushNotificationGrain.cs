@@ -16,9 +16,12 @@ namespace Orleans.PushNotifications.Server.Grains
             _pushNotificationsManager = pushNotificationsManager;
         }
 
-        public async Task<Result<DeviceRegistration>> SendPushNotification(DeviceRegistration deviceRegistration, PushNotification pushNotification)
+        public async Task<Result<DeviceRegistration>> SendPushNotification(
+            string bundleId,
+            DeviceRegistration deviceRegistration, 
+            PushNotification pushNotification)
         {
-            var result = await _pushNotificationsManager.SendPushAsync(deviceRegistration, pushNotification);
+            var result = await _pushNotificationsManager.SendPushAsync(bundleId, deviceRegistration, pushNotification);
             return result;
         }
     }

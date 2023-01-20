@@ -21,7 +21,9 @@ public class PushNotificationsManager : IPushNotificationsManager
         _googlePushSender = serviceProvider.GetService(typeof(IGooglePushSender)) as IGooglePushSender;
     }
 
-    public async Task<Result<DeviceRegistration>> SendPushAsync(DeviceRegistration deviceRegistration,
+    public async Task<Result<DeviceRegistration>> SendPushAsync(
+        string bundleId,
+        DeviceRegistration deviceRegistration,
         PushNotification notification,
         CancellationToken cancellationToken = default)
     {
@@ -37,10 +39,12 @@ public class PushNotificationsManager : IPushNotificationsManager
             Result<DeviceRegistration>.Fail(new NotInitializedException(deviceRegistration.Platform.ToString()));
         }
 
-        return await sender!.SendPushAsync(deviceRegistration, notification, cancellationToken);
+        return await sender!.SendPushAsync(bundleId, deviceRegistration, notification, cancellationToken);
     }
 
-    public async Task<Result<DeviceRegistration>[]> SendPushAsync(DeviceRegistration[] deviceRegistrations,
+    public async Task<Result<DeviceRegistration>[]> SendPushAsync(
+        string bundleId,
+        DeviceRegistration[] deviceRegistrations,
         PushNotification notification,
         CancellationToken cancellationToken = default)
     {
@@ -48,14 +52,16 @@ public class PushNotificationsManager : IPushNotificationsManager
         foreach (var device in deviceRegistrations)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var result = await SendPushAsync(device, notification, cancellationToken);
+            var result = await SendPushAsync(bundleId, device, notification, cancellationToken);
             results.Add(result);
         }
 
         return results.ToArray();
     }
 
-    public async Task<Result<DeviceRegistration>[]> SendPushAsync(DeviceRegistration deviceRegistration,
+    public async Task<Result<DeviceRegistration>[]> SendPushAsync(
+        string bundleId,
+        DeviceRegistration deviceRegistration,
         PushNotification[] notifications,
         CancellationToken cancellationToken = default)
     {
@@ -63,14 +69,16 @@ public class PushNotificationsManager : IPushNotificationsManager
         foreach (var message in notifications)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var result = await SendPushAsync(deviceRegistration, message, cancellationToken);
+            var result = await SendPushAsync(bundleId, deviceRegistration, message, cancellationToken);
             results.Add(result);
         }
 
         return results.ToArray();
     }
 
-    public async Task<Result<DeviceRegistration>[]> SendPushAsync(DeviceRegistration[] deviceRegistrations,
+    public async Task<Result<DeviceRegistration>[]> SendPushAsync(
+        string bundleId,
+        DeviceRegistration[] deviceRegistrations,
         PushNotification[] notifications,
         CancellationToken cancellationToken = default)
     {
@@ -81,7 +89,7 @@ public class PushNotificationsManager : IPushNotificationsManager
             foreach (var message in notifications)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                var result = await SendPushAsync(device, message, cancellationToken);
+                var result = await SendPushAsync(bundleId, device, message, cancellationToken);
                 results.Add(result);
             }
         }

@@ -11,6 +11,8 @@ public class ChatGrain : Grain, IChatGrain
 {
     public async Task<Result<DeviceRegistration>> SendTestMessage()
     {
+        // TODO: move bundle ids to some configuration
+        var bundleId = "some app";
         var pushGrain = GrainFactory.GetGrain<IPushNotificationGrain>(Guid.Empty.ToString());
         DeviceRegistration device = new DeviceRegistration
         {
@@ -22,7 +24,7 @@ public class ChatGrain : Grain, IChatGrain
             Title = "TEST ALERT",
             Message = "TEST"
         };
-        var result = await pushGrain.SendPushNotification(device, pushNotification);
+        var result = await pushGrain.SendPushNotification(bundleId, device, pushNotification);
         return result;
     }
 }
