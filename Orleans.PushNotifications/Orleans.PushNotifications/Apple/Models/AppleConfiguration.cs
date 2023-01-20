@@ -31,7 +31,6 @@ public class AppleConfiguration
     /// </summary>
     public ApnServerType ApnServerType { get; set; }
 
-    public bool IsLoaded { get; set; }
 
     public void Validate()
     {

@@ -1,7 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Orleans.PushNotifications.Google.Models;
-using Orleans.PushNotifications.Server.Extensions;
-using Orleans.PushNotifications.Tests.Cluster.Providers;
 using Orleans.Serialization;
 using Orleans.TestingHost;
 
