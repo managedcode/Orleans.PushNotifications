@@ -29,7 +29,8 @@ public static class PushNotificationsExtensions
         }
 
         serviceCollection.AddSingleton<GoogleConfiguration>(config);
-        serviceCollection.AddSingleton<IGooglePushSender, GooglePushSender>();
+        // TODO: do same with apple
+        serviceCollection.TryAddSingleton<IGooglePushSender, GooglePushSender>();
         serviceCollection.TryAddSingleton<IPushNotificationsManager, PushNotificationsManager>();
 
         return serviceCollection;

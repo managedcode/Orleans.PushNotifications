@@ -14,7 +14,7 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
     private readonly GoogleConfiguration _configuration;
     private readonly HttpClient _httpClient;
 
-    public GooglePushSender(GoogleConfiguration configuration)
+    public GooglePushSender(IEnumerable<GoogleConfiguration> configuration)
     {
         if (configuration is null)
         {
@@ -22,7 +22,7 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
             return;
         }
 
-        _configuration = configuration;
+        _configuration = configuration.First();
         _configuration.Validate();
         IsConfigured = true;
 
