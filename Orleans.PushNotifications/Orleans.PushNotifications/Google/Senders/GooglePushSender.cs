@@ -11,19 +11,20 @@ namespace Orleans.PushNotifications.Google.Senders;
 public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>, IGooglePushSender
 {
     private const string FcmUrl = "https://fcm.googleapis.com/fcm/send";
+    private readonly Dictionary<string, GoogleConfiguration> _googleConfigurations;
     private readonly GoogleConfiguration _configuration;
     private readonly HttpClient _httpClient;
 
-    public GooglePushSender(IEnumerable<GoogleConfiguration> configuration)
+    public GooglePushSender(IEnumerable<GoogleConfiguration> configurations)
     {
-        if (configuration is null)
+        if (configurations is null)
         {
             IsConfigured = false;
             return;
         }
 
-        _configuration = configuration.First();
-        _configuration.Validate();
+        // TODO: ask what property use as key
+        _googleConfigurations = configurations.ToDictionary(config => config.SenderId);
         IsConfigured = true;
 
         _httpClient = new HttpClient();
