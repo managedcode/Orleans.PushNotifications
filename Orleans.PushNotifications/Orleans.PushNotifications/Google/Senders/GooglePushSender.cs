@@ -65,12 +65,17 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
         notification.To = device.DeviceToken;
         notification.Token = device.DeviceToken;
 
+        if (_googleConfigurations.TryGetValue(bundleId, out var configuration) is false)
+        {
+            return Result<DeviceRegistration>.Fail();
+        }
+        
         var json = JsonSerializer.Serialize(notification);
 
         using (var request = new HttpRequestMessage(HttpMethod.Post, FcmUrl))
         {
-            request.Headers.Add("Authorization", $"key = {_configuration.ServerKey}");
-            request.Headers.Add("Sender", $"id = {_configuration.SenderId}");
+            request.Headers.Add("Authorization", $"key = {configuration.ServerKey}");
+            request.Headers.Add("Sender", $"id = {configuration.SenderId}");
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
