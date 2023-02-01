@@ -14,6 +14,11 @@ public static class PushNotificationsExtensions
 {
     public static IServiceCollection AddApplePushNotifications(this IServiceCollection serviceCollection, AppleConfiguration config)
     {
+        if (config is null)
+        {
+            throw new ArgumentNullException(nameof(config));
+        }
+        
         serviceCollection.AddSingleton<AppleConfiguration>(config);
         serviceCollection.AddSingleton<IApplePushSender, ApplePushSender>();
         serviceCollection.AddSingleton<IPushNotificationsManager, PushNotificationsManager>();

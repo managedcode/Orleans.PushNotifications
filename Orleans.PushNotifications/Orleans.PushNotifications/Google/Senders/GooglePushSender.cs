@@ -23,7 +23,6 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
             return;
         }
 
-        // TODO: ask what property use as key
         _googleConfigurations = configurations.ToDictionary(config => config.SenderId);
         IsConfigured = true;
 
