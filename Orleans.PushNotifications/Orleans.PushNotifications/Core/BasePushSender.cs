@@ -21,7 +21,7 @@ public abstract class BasePushSender<TRequest, TResponse> : IPushSender<TRequest
 
         try
         {
-            var push = ConvertPushNotification(notification);
+            var push = ConvertPushNotification(bundleId, notification);
             return await SendPushNotificationAsync(bundleId, deviceRegistration, push, cancellationToken);
         }
         catch (Exception e)
@@ -30,7 +30,7 @@ public abstract class BasePushSender<TRequest, TResponse> : IPushSender<TRequest
         }
     }
 
-    protected abstract TRequest ConvertPushNotification(PushNotification notification);
+    protected abstract TRequest ConvertPushNotification(string bundleId, PushNotification notification);
 
     protected abstract Task<Result<DeviceRegistration>> SendPushNotificationAsync(
         string bundleId,

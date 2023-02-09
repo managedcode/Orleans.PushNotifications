@@ -12,7 +12,6 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
 {
     private const string FcmUrl = "https://fcm.googleapis.com/fcm/send";
     private readonly Dictionary<string, GoogleConfiguration> _googleConfigurations;
-    private readonly GoogleConfiguration _configuration;
     private readonly HttpClient _httpClient;
 
     public GooglePushSender(IEnumerable<GoogleConfiguration> configurations)
@@ -29,8 +28,10 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
         _httpClient = new HttpClient();
     }
 
-    protected override GoogleNotification ConvertPushNotification(PushNotification notification)
+    protected override GoogleNotification ConvertPushNotification(string bundleId, PushNotification notification)
     {
+        _googleConfigurations.TryGetValue(bundleId, out var configuration);
+        
         var googleNotification = new GoogleNotification
         {
             Data = notification.Data,
@@ -44,7 +45,7 @@ public class GooglePushSender : BasePushSender<GoogleNotification, FcmResponse>,
             {
                 Notification = new GoogleAndroidNotificationDetails
                 {
-                    ChannelId = _configuration.DefaultChannelId,
+                    ChannelId = configuration.DefaultChannelId,
                     Title = notification.Title,
                     Body = notification.Message,
                     Image = notification.ImageUri,

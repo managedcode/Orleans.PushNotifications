@@ -14,28 +14,25 @@ public class ApplePushSender : BasePushSender<AppleNotification, ApnResponse>, I
 {
     private const string DevelopmentUrl = "https://api.development.push.apple.com";
     private const string ProductionUrl = "https://api.push.apple.com";
-    private readonly AppleAuthTokenProvider _authTokenProvider;
-    private readonly AppleConfiguration _configuration;
+    private readonly Dictionary<string, AppleConfiguration> _appleConfigurations;
     private readonly HttpClient _httpClient;
 
-    public ApplePushSender(AppleConfiguration configuration)
+    public ApplePushSender(IEnumerable<AppleConfiguration> configurations)
     {
-        if (configuration is null)
+        if (configurations is null)
         {
             IsConfigured = false;
             return;
         }
 
-        _configuration = configuration;
-        _configuration.Validate();
+        _appleConfigurations = configurations.ToDictionary(config => config.AppBundleIdentifier);
         IsConfigured = true;
 
         _httpClient = new HttpClient();
-
-        _authTokenProvider = new AppleAuthTokenProvider(_configuration);
     }
 
-    protected override AppleNotification ConvertPushNotification(PushNotification notification)
+
+    protected override AppleNotification ConvertPushNotification(string bundleId, PushNotification notification)
     {
         var appleNotification = new AppleNotification
         {
@@ -69,7 +66,7 @@ public class ApplePushSender : BasePushSender<AppleNotification, ApnResponse>, I
             appleNotification.Aps.ContentAvailable = 1;
         }
 
-        return appleNotification;
+        return appleNotification;   
     }
 
     protected override async Task<Result<DeviceRegistration>> SendPushNotificationAsync(
@@ -78,8 +75,12 @@ public class ApplePushSender : BasePushSender<AppleNotification, ApnResponse>, I
         AppleNotification notification,
         CancellationToken cancellationToken = default)
     {
-
-        var server = _configuration.ApnServerType switch
+        if (_appleConfigurations.TryGetValue(bundleId, out var configuration) is false)
+        {
+            return Result<DeviceRegistration>.Fail();
+        }
+        
+        var server = configuration.ApnServerType switch
         {
             ApnServerType.Production => ProductionUrl,
             ApnServerType.Development => DevelopmentUrl,
@@ -95,10 +96,10 @@ public class ApplePushSender : BasePushSender<AppleNotification, ApnResponse>, I
             Content = new StringContent(json)
         };
 
-        var jwt = _authTokenProvider.GetAuthToken();
+        var jwt = new AppleAuthTokenProvider(configuration).GetAuthToken();
         request.Headers.Authorization = new AuthenticationHeaderValue("bearer", jwt);
         request.Headers.TryAddWithoutValidation("apns-id", $"{Guid.NewGuid():D}");
-        request.Headers.TryAddWithoutValidation("apns-topic", _configuration.AppBundleIdentifier);
+        request.Headers.TryAddWithoutValidation("apns-topic", configuration.AppBundleIdentifier);
         request.Headers.TryAddWithoutValidation("apns-expiration", "0");
 
         var silentPush = notification.Aps.Alert == null && notification.Aps.ContentAvailable == 1;
